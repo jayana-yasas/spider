@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
@@ -28,6 +29,7 @@ public class FileWatcher {
     public void watchFile(){
         try {
             WatchService watchService = FileSystems.getDefault().newWatchService();
+
             Path path = Paths.get(FILE_PATH_PDC);
 //            path.register(watchService, ENTRY_CREATE, ENTRY_MODIFY, ENTRY_DELETE);
             path.register(watchService, ENTRY_CREATE);
@@ -35,20 +37,18 @@ public class FileWatcher {
             System.out.println("Listening for   :"+path.toAbsolutePath());
             boolean poll = true;
 
-            while (poll) {
-                if(pdcProcessRepository.existsByStage(2)){
-                    WatchKey key = watchService.take();
 
-                    for (WatchEvent<?> event : key.pollEvents()) {
-                        System.out.println("Event kind : " + event.kind() + " - File : " + event.context());
-                        String SAMPLE_XLSX_FILE_PATH = FILE_PATH_PDC+event.context().toString(); //         C:\\AA\\file_name.xlms
-                        System.out.println(SAMPLE_XLSX_FILE_PATH);
+            while (true){
+                File folder = new File(FILE_PATH_PDC);
+                File[] listOfFiles = folder.listFiles();
+                for (int i = 0; i < listOfFiles.length; i++) {
+                    if (listOfFiles[i].isFile()) {
+                        String SAMPLE_XLSX_FILE_PATH = FILE_PATH_PDC+listOfFiles[i].getName(); //         C:\\AA\\file_name.xlms
+                        System.out.println("File " + listOfFiles[i].getName());
                         Thread.sleep(READ_DELAY);
                         excelFileService.getSheets(SAMPLE_XLSX_FILE_PATH);
-                        System.out.println("Event done, File : " + event.context());
                         deleteFile(SAMPLE_XLSX_FILE_PATH);
                     }
-                    poll = key.reset();
                 }
                 Thread.sleep(POLL_INTERVAL);
             }
