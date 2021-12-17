@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
@@ -76,6 +77,11 @@ public class Datafile  {
     private String equipType;
     private String equipDescription;
     private Double age;
+    private Double dc;
+    private Double first;
+    private String last;
+    private Double worst;
+    private String islast;
     private Date expDate;
     private String sector;
     private String district;
@@ -83,6 +89,77 @@ public class Datafile  {
     public Datafile() {
     }
 
+    public Datafile(String idData, String product, Date month,Integer stage, String facilityNo, String clientFullName, String nicBr, String address, Integer facilityPeriod, Double facilityAmount, String facilityStatus, Date activateDate, Double rentalAmount, String facilityType, Double interestRate, Double noOfArr, String pNpFlag, Double futureCapital, Double futureInterest, Double interestInSuspence, Integer vatInSuspence, Double overPayBalance, Integer unUtilizedPrepayment, Double rntCap, Double rntInt, Double prePre, Double rnoRno, Double gsoGso, Double insIns, Double inoCap, Double inoGst, Double gstGst, Double chrCap, Double chrGst, Double upsUps, Double rmvRmv, Double ndpNdp, Double ochCap, Double ochGst, Double incCap, Double incGat, Double othGst, Double sifSif, Double lglLgl, Double ostOst, Double wchWch, Double hyfHyf, Double schCap, Double schGst, Double advAdv, Double othCap, Double cavCav, Double luxLux, Double tcTc, Double cloClo, Double cloCap, Double cloOth, Integer fallenDueRentals, Double setteld, Double totOutstanding, Double totOutBalance, Double rntAmtArrears, String equipType, String equipDescription, Double age, Date expDate, String sector, String district) {
+        this.idData = idData;
+        this.product = product;
+        this.month = month;
+        this.stage = stage;
+        this.facilityNo = facilityNo;
+        this.clientFullName = clientFullName;
+        this.nicBr = nicBr;
+        this.address = address;
+        this.facilityPeriod = facilityPeriod;
+        this.facilityAmount = facilityAmount;
+        this.facilityStatus = facilityStatus;
+        this.activateDate = activateDate;
+        this.rentalAmount = rentalAmount;
+        this.facilityType = facilityType;
+        this.interestRate = interestRate;
+        this.noOfArr = noOfArr;
+        this.pNpFlag = pNpFlag;
+        this.futureCapital = futureCapital;
+        this.futureInterest = futureInterest;
+        this.interestInSuspence = interestInSuspence;
+        this.vatInSuspence = vatInSuspence;
+        this.overPayBalance = overPayBalance;
+        this.unUtilizedPrepayment = unUtilizedPrepayment;
+        this.rntCap = rntCap;
+        this.rntInt = rntInt;
+        this.prePre = prePre;
+        this.rnoRno = rnoRno;
+        this.gsoGso = gsoGso;
+        this.insIns = insIns;
+        this.inoCap = inoCap;
+        this.inoGst = inoGst;
+        this.gstGst = gstGst;
+        this.chrCap = chrCap;
+        this.chrGst = chrGst;
+        this.upsUps = upsUps;
+        this.rmvRmv = rmvRmv;
+        this.ndpNdp = ndpNdp;
+        this.ochCap = ochCap;
+        this.ochGst = ochGst;
+        this.incCap = incCap;
+        this.incGat = incGat;
+        this.othGst = othGst;
+        this.sifSif = sifSif;
+        this.lglLgl = lglLgl;
+        this.ostOst = ostOst;
+        this.wchWch = wchWch;
+        this.hyfHyf = hyfHyf;
+        this.schCap = schCap;
+        this.schGst = schGst;
+        this.advAdv = advAdv;
+        this.othCap = othCap;
+        this.cavCav = cavCav;
+        this.luxLux = luxLux;
+        this.tcTc = tcTc;
+        this.cloClo = cloClo;
+        this.cloCap = cloCap;
+        this.cloOth = cloOth;
+        this.fallenDueRentals = fallenDueRentals;
+        this.setteld = setteld;
+        this.totOutstanding = totOutstanding;
+        this.totOutBalance = totOutBalance;
+        this.rntAmtArrears = rntAmtArrears;
+        this.equipType = equipType;
+        this.equipDescription = equipDescription;
+        this.age = age;
+        this.dc = dc;
+        this.expDate = expDate;
+        this.sector = sector;
+        this.district = district;
+    }
 
     @Id
     @Column(name = "id_data")
@@ -739,6 +816,56 @@ public class Datafile  {
     }
 
     @Basic
+    @Column(name = "dc")
+    public Double getDc() {
+        return dc;
+    }
+
+    public void setDc(Double dc) {
+        this.dc = dc;
+    }
+
+    @Basic
+    @Column(name = "first")
+    public Double getFirst() {
+        return first;
+    }
+
+    public void setFirst(Double first) {
+        this.first = first;
+    }
+
+    @Basic
+    @Column(name = "last")
+    public String getLast() {
+        return last;
+    }
+
+    public void setLast(String last) {
+        this.last = last;
+    }
+
+    @Basic
+    @Column(name = "worst")
+    public Double getWorst() {
+        return worst;
+    }
+
+    public void setWorst(Double worst) {
+        this.worst = worst;
+    }
+
+    @Basic
+    @Column(name = "islast")
+    public String getIslast() {
+        return islast;
+    }
+
+    public void setIslast(String islast) {
+        this.islast = islast;
+    }
+
+    @Basic
     @Column(name = "exp_date")
     public Date getExpDate() {
         return expDate;
@@ -838,80 +965,14 @@ public class Datafile  {
                 Objects.equals(equipType, datafile.equipType) &&
                 Objects.equals(equipDescription, datafile.equipDescription) &&
                 Objects.equals(age, datafile.age) &&
+                Objects.equals(dc, datafile.dc) &&
+                Objects.equals(first, datafile.first) &&
+                Objects.equals(last, datafile.last) &&
+                Objects.equals(worst, datafile.worst) &&
+                Objects.equals(islast, datafile.islast) &&
                 Objects.equals(expDate, datafile.expDate) &&
                 Objects.equals(sector, datafile.sector) &&
                 Objects.equals(district, datafile.district);
-    }
-
-    public Datafile(String idData, String product, Date month,Integer stage, String facilityNo, String clientFullName, String nicBr, String address, Integer facilityPeriod, Double facilityAmount, String facilityStatus, Date activateDate, Double rentalAmount, String facilityType, Double interestRate, Double noOfArr, String pNpFlag, Double futureCapital, Double futureInterest, Double interestInSuspence, Integer vatInSuspence, Double overPayBalance, Integer unUtilizedPrepayment, Double rntCap, Double rntInt, Double prePre, Double rnoRno, Double gsoGso, Double insIns, Double inoCap, Double inoGst, Double gstGst, Double chrCap, Double chrGst, Double upsUps, Double rmvRmv, Double ndpNdp, Double ochCap, Double ochGst, Double incCap, Double incGat, Double othGst, Double sifSif, Double lglLgl, Double ostOst, Double wchWch, Double hyfHyf, Double schCap, Double schGst, Double advAdv, Double othCap, Double cavCav, Double luxLux, Double tcTc, Double cloClo, Double cloCap, Double cloOth, Integer fallenDueRentals, Double setteld, Double totOutstanding, Double totOutBalance, Double rntAmtArrears, String equipType, String equipDescription, Double age, Date expDate, String sector, String district) {
-        this.idData = idData;
-        this.product = product;
-        this.month = month;
-        this.stage = stage;
-        this.facilityNo = facilityNo;
-        this.clientFullName = clientFullName;
-        this.nicBr = nicBr;
-        this.address = address;
-        this.facilityPeriod = facilityPeriod;
-        this.facilityAmount = facilityAmount;
-        this.facilityStatus = facilityStatus;
-        this.activateDate = activateDate;
-        this.rentalAmount = rentalAmount;
-        this.facilityType = facilityType;
-        this.interestRate = interestRate;
-        this.noOfArr = noOfArr;
-        this.pNpFlag = pNpFlag;
-        this.futureCapital = futureCapital;
-        this.futureInterest = futureInterest;
-        this.interestInSuspence = interestInSuspence;
-        this.vatInSuspence = vatInSuspence;
-        this.overPayBalance = overPayBalance;
-        this.unUtilizedPrepayment = unUtilizedPrepayment;
-        this.rntCap = rntCap;
-        this.rntInt = rntInt;
-        this.prePre = prePre;
-        this.rnoRno = rnoRno;
-        this.gsoGso = gsoGso;
-        this.insIns = insIns;
-        this.inoCap = inoCap;
-        this.inoGst = inoGst;
-        this.gstGst = gstGst;
-        this.chrCap = chrCap;
-        this.chrGst = chrGst;
-        this.upsUps = upsUps;
-        this.rmvRmv = rmvRmv;
-        this.ndpNdp = ndpNdp;
-        this.ochCap = ochCap;
-        this.ochGst = ochGst;
-        this.incCap = incCap;
-        this.incGat = incGat;
-        this.othGst = othGst;
-        this.sifSif = sifSif;
-        this.lglLgl = lglLgl;
-        this.ostOst = ostOst;
-        this.wchWch = wchWch;
-        this.hyfHyf = hyfHyf;
-        this.schCap = schCap;
-        this.schGst = schGst;
-        this.advAdv = advAdv;
-        this.othCap = othCap;
-        this.cavCav = cavCav;
-        this.luxLux = luxLux;
-        this.tcTc = tcTc;
-        this.cloClo = cloClo;
-        this.cloCap = cloCap;
-        this.cloOth = cloOth;
-        this.fallenDueRentals = fallenDueRentals;
-        this.setteld = setteld;
-        this.totOutstanding = totOutstanding;
-        this.totOutBalance = totOutBalance;
-        this.rntAmtArrears = rntAmtArrears;
-        this.equipType = equipType;
-        this.equipDescription = equipDescription;
-        this.age = age;
-        this.expDate = expDate;
-        this.sector = sector;
-        this.district = district;
     }
 
     @Override
@@ -925,72 +986,77 @@ public class Datafile  {
         return "Datafile{" +
                 "idData=" + idData +
                 ", product='" + product + '\'' +
-                ", month=" + month +
-                ", stage=" + stage +
+//                ", month=" + month.toString().replace(" 00:00:00.0","") +
+//                ", stage=" + stage +
                 ", facilityNo='" + facilityNo + '\'' +
-                ", clientFullName='" + clientFullName + '\'' +
-                ", nicBr='" + nicBr + '\'' +
-                ", address='" + address + '\'' +
-                ", facilityPeriod=" + facilityPeriod +
-                ", facilityAmount=" + facilityAmount +
-                ", facilityStatus='" + facilityStatus + '\'' +
-                ", activateDate=" + activateDate +
-                ", rentalAmount=" + rentalAmount +
-                ", facilityType='" + facilityType + '\'' +
-                ", interestRate=" + interestRate +
-                ", noOfArr=" + noOfArr +
-                ", pNpFlag='" + pNpFlag + '\'' +
-                ", futureCapital=" + futureCapital +
-                ", futureInterest=" + futureInterest +
-                ", interestInSuspence=" + interestInSuspence +
-                ", vatInSuspence=" + vatInSuspence +
-                ", overPayBalance=" + overPayBalance +
-                ", unUtilizedPrepayment=" + unUtilizedPrepayment +
-                ", rntCap=" + rntCap +
-                ", rntInt=" + rntInt +
-                ", prePre=" + prePre +
-                ", rnoRno=" + rnoRno +
-                ", gsoGso=" + gsoGso +
-                ", insIns=" + insIns +
-                ", inoCap=" + inoCap +
-                ", inoGst=" + inoGst +
-                ", gstGst=" + gstGst +
-                ", chrCap=" + chrCap +
-                ", chrGst=" + chrGst +
-                ", upsUps=" + upsUps +
-                ", rmvRmv=" + rmvRmv +
-                ", ndpNdp=" + ndpNdp +
-                ", ochCap=" + ochCap +
-                ", ochGst=" + ochGst +
-                ", incCap=" + incCap +
-                ", incGat=" + incGat +
-                ", othGst=" + othGst +
-                ", sifSif=" + sifSif +
-                ", lglLgl=" + lglLgl +
-                ", ostOst=" + ostOst +
-                ", wchWch=" + wchWch +
-                ", hyfHyf=" + hyfHyf +
-                ", schCap=" + schCap +
-                ", schGst=" + schGst +
-                ", advAdv=" + advAdv +
-                ", othCap=" + othCap +
-                ", cavCav=" + cavCav +
-                ", luxLux=" + luxLux +
-                ", tcTc=" + tcTc +
-                ", cloClo=" + cloClo +
-                ", cloCap=" + cloCap +
-                ", cloOth=" + cloOth +
-                ", fallenDueRentals=" + fallenDueRentals +
-                ", setteld=" + setteld +
-                ", totOutstanding=" + totOutstanding +
-                ", totOutBalance=" + totOutBalance +
-                ", rntAmtArrears=" + rntAmtArrears +
-                ", equipType='" + equipType + '\'' +
-                ", equipDescription='" + equipDescription + '\'' +
                 ", age=" + age +
-                ", expDate=" + expDate +
-                ", sector='" + sector + '\'' +
-                ", district='" + district + '\'' +
+                ", dc=" + dc +
+                ", first=" + first +
+                ", last=" + last +
+                ", worst=" + worst +
+                ", islast=" + islast +
+                ", clientFullName='" + clientFullName + '\'' +
+//                ", nicBr='" + nicBr + '\'' +
+//                ", address='" + address + '\'' +
+//                ", facilityPeriod=" + facilityPeriod +
+//                ", facilityAmount=" + facilityAmount +
+//                ", facilityStatus='" + facilityStatus + '\'' +
+//                ", activateDate=" + activateDate +
+//                ", rentalAmount=" + rentalAmount +
+//                ", facilityType='" + facilityType + '\'' +
+//                ", interestRate=" + interestRate +
+//                ", noOfArr=" + noOfArr +
+//                ", pNpFlag='" + pNpFlag + '\'' +
+//                ", futureCapital=" + futureCapital +
+//                ", futureInterest=" + futureInterest +
+//                ", interestInSuspence=" + interestInSuspence +
+//                ", vatInSuspence=" + vatInSuspence +
+//                ", overPayBalance=" + overPayBalance +
+//                ", unUtilizedPrepayment=" + unUtilizedPrepayment +
+//                ", rntCap=" + rntCap +
+//                ", rntInt=" + rntInt +
+//                ", prePre=" + prePre +
+//                ", rnoRno=" + rnoRno +
+//                ", gsoGso=" + gsoGso +
+//                ", insIns=" + insIns +
+//                ", inoCap=" + inoCap +
+//                ", inoGst=" + inoGst +
+//                ", gstGst=" + gstGst +
+//                ", chrCap=" + chrCap +
+//                ", chrGst=" + chrGst +
+//                ", upsUps=" + upsUps +
+//                ", rmvRmv=" + rmvRmv +
+//                ", ndpNdp=" + ndpNdp +
+//                ", ochCap=" + ochCap +
+//                ", ochGst=" + ochGst +
+//                ", incCap=" + incCap +
+//                ", incGat=" + incGat +
+//                ", othGst=" + othGst +
+//                ", sifSif=" + sifSif +
+//                ", lglLgl=" + lglLgl +
+//                ", ostOst=" + ostOst +
+//                ", wchWch=" + wchWch +
+//                ", hyfHyf=" + hyfHyf +
+//                ", schCap=" + schCap +
+//                ", schGst=" + schGst +
+//                ", advAdv=" + advAdv +
+//                ", othCap=" + othCap +
+//                ", cavCav=" + cavCav +
+//                ", luxLux=" + luxLux +
+//                ", tcTc=" + tcTc +
+//                ", cloClo=" + cloClo +
+//                ", cloCap=" + cloCap +
+//                ", cloOth=" + cloOth +
+//                ", fallenDueRentals=" + fallenDueRentals +
+//                ", setteld=" + setteld +
+//                ", totOutstanding=" + totOutstanding +
+//                ", totOutBalance=" + totOutBalance +
+//                ", rntAmtArrears=" + rntAmtArrears +
+//                ", equipType='" + equipType + '\'' +
+//                ", equipDescription='" + equipDescription + '\'' +
+//                ", expDate=" + expDate +
+//                ", sector='" + sector + '\'' +
+//                ", district='" + district + '\'' +
                 '}';
     }
 }

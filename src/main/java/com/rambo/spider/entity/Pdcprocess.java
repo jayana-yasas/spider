@@ -14,6 +14,7 @@ public class Pdcprocess {
     private String calMode;
     private String currentCal;
     private String sicr;
+    private String basis;
     private String defaultPoint;
     private String calMethod;
     private String daLevel;
@@ -79,6 +80,16 @@ public class Pdcprocess {
     }
 
     @Basic
+    @Column(name = "basis")
+    public String getBasis() {
+        return basis;
+    }
+
+    public void setBasis(String basis) {
+        this.basis = basis;
+    }
+
+    @Basic
     @Column(name = "default_point")
     public String getDefaultPoint() {
         return defaultPoint;
@@ -128,5 +139,20 @@ public class Pdcprocess {
     public int hashCode() {
 
         return Objects.hash(id, stage, currentYear, calMode, currentCal, sicr, defaultPoint, calMethod, daLevel);
+    }
+
+    @Override
+    public String toString() {
+        return "Pdcprocess{" +
+                "id=" + id +
+                ", stage=" + stage +
+                ", currentYear=" + currentYear +
+                ", calMode='" + calMode + '\'' +
+                ", currentCal='" + currentCal + '\'' +
+                ", sicr='" + sicr + '\'' +
+                ", defaultPoint='" + defaultPoint + '\'' +
+                ", calMethod='" + calMethod + '\'' +
+                ", daLevel='" + daLevel + '\'' +
+                '}';
     }
 }

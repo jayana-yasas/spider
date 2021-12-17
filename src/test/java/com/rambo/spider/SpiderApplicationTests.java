@@ -8,6 +8,8 @@ class SpiderApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("contextLoads Test");
+
     }
 
 }
