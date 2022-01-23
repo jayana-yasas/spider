@@ -1,8 +1,10 @@
 package com.rambo.spider;
 
-import com.rambo.spider.events.FileReader;
+import com.rambo.spider.events.LGDProcessManager;
+import com.rambo.spider.listener.GeneralFileReader;
 import com.rambo.spider.events.ProcessManager;
-import com.rambo.spider.events.SimplifiedFileReader;
+import com.rambo.spider.listener.LGDFileReader;
+import com.rambo.spider.listener.SimplifiedFileReader;
 import com.rambo.spider.events.SimplifiedProcessManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,16 +31,21 @@ public class SpiderApplication {
             taskExecutor.execute(processManager);
             SimplifiedProcessManager simplifiedProcessManager=context.getBean(SimplifiedProcessManager.class);
             taskExecutor.execute(simplifiedProcessManager);
+            LGDProcessManager lgdProcessManager=context.getBean(LGDProcessManager.class);
+            taskExecutor.execute(lgdProcessManager);
             LOGGER.info("Initialized PD data processing");
         }catch (Exception e){
             LOGGER.error("Error, Something went wrong with ProcessManager Thread");
             System.exit(0);
         }
         try {
-            FileReader fileProcessor=context.getBean(FileReader.class);
+            GeneralFileReader fileProcessor=context.getBean(GeneralFileReader.class);
             taskExecutor.execute(fileProcessor);
             SimplifiedFileReader simplifiedFileReader=context.getBean(SimplifiedFileReader.class);
             taskExecutor.execute(simplifiedFileReader);
+            LGDFileReader lgdFileReader=context.getBean(LGDFileReader.class);
+            taskExecutor.execute(lgdFileReader);
+
             LOGGER.info("Initialized file reading");
         }catch (Exception e){
             LOGGER.error("Error, Something went wrong with FileReader Thread");

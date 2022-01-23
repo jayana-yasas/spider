@@ -6,11 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DatafileRepository extends CrudRepository<Datafile, String> {
 
     List<Datafile> findAllByOrderByFacilityNoAscMonthAsc();
+
+    List<Datafile> findAllByProductOrderByFacilityNoAscMonthAsc(String product);
 
     List<Datafile> findByLastIsNotNullAndLastIsNot(String last);
 

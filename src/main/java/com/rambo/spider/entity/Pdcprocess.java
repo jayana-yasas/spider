@@ -1,13 +1,11 @@
 package com.rambo.spider.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Pdcprocess {
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private Integer stage;
     private Integer currentYear;
@@ -18,6 +16,7 @@ public class Pdcprocess {
     private String defaultPoint;
     private String calMethod;
     private String daLevel;
+    private String product;
 
     @Id
     @Column(name = "id")
@@ -154,5 +153,15 @@ public class Pdcprocess {
                 ", calMethod='" + calMethod + '\'' +
                 ", daLevel='" + daLevel + '\'' +
                 '}';
+    }
+
+    @Basic
+    @Column(name = "product")
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
     }
 }

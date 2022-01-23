@@ -3,16 +3,16 @@ package com.rambo.spider.util;
 import com.rambo.spider.entity.Datafile;
 import com.rambo.spider.entity.Infotemplatepreview;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 
 public class DataMapper {
 
-    public static Datafile mapDataFile(int rowNum,int cellNum, String data,Datafile datafile,String columnName) {
+    public static void mapDataFile(int rowNum, int cellNum, String data, Datafile datafile, String columnName) {
         try {
             switch (columnName) {
 
@@ -22,7 +22,8 @@ public class DataMapper {
 
                     }else{
                         Date entryMonth = new SimpleDateFormat("MM/dd/yy").parse(data);
-                        datafile.setMonth(entryMonth);
+                        Timestamp ts=new Timestamp(entryMonth.getTime());
+                        datafile.setMonth(ts);
 
                         Calendar cal = Calendar.getInstance(TimeZone.getDefault());
                         cal.setTime(entryMonth);
@@ -51,164 +52,167 @@ public class DataMapper {
                     }
 
                   break;
-                case "Facility Amount":
-                    datafile.setFacilityAmount(setDoubleValue(rowNum ,cellNum, data));
+                case "Facility Amount" :
+                    datafile.setFacilityAmount(setDoubleValue(rowNum ,"Facility Amount", data));
                   break;
+                case "Facility Amt" :
+                    datafile.setFacilityAmount(setDoubleValue(rowNum ,"Facility Amt", data));
+                    break;
                 case "Facility Status":
                     datafile.setFacilityStatus(data);
                   break;
                 case "Activate Date":
-                    datafile.setActivateDate(new SimpleDateFormat("dd/MM/yyyy").parse(data));
+//                    datafile.setActivateDate(new SimpleDateFormat("dd/MM/yyyy").parse(data));
                   break;
                 case "Rental Amount":
-                    datafile.setRentalAmount(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setRentalAmount(setDoubleValue(rowNum ,"Rental Amount", data));
                   break;
                 case "Facility Type":
                     datafile.setFacilityType(data);
                   break;
                 case "Interest Rate":
-                    datafile.setInterestRate(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setInterestRate(setDoubleValue(rowNum ,"Interest Rate", data));
                   break;
                 case "No Of Arr":
-                    datafile.setNoOfArr(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setNoOfArr(setDoubleValue(rowNum ,"No Of Arr", data));
                   break;
                 case "P/NP Flag":
                     datafile.setpNpFlag(data);
                   break;
                 case "Future Capital":
-                    datafile.setFutureCapital(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setFutureCapital(setDoubleValue(rowNum ,"Future Capital", data));
                   break;
                 case "Future Interest":
-                    datafile.setFutureInterest(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setFutureInterest(setDoubleValue(rowNum ,"Future Interest", data));
                   break;
                 case "Interest In Suspence":
-                    datafile.setInterestInSuspence(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setInterestInSuspence(setDoubleValue(rowNum ,"Interest In Suspence", data));
                   break;
                 case "VAT In Suspence":
 //                    datafile.setVatInSuspence(Integer.parseInt(data));
                   break;
                 case "OverPay Balance":
-                    datafile.setOverPayBalance(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setOverPayBalance(setDoubleValue(rowNum ,"OverPay Balance", data));
                   break;
                 case "UnUtilized Prepayment":
 //                    datafile.setUnUtilizedPrepayment(Integer.parseInt(data));
                   break;
                 case "RNT - CAP":
-                    datafile.setRntCap(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setRntCap(setDoubleValue(rowNum ,"RNT - CAP", data));
                   break;
                 case "RNT - INT":
-                    datafile.setRntInt(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setRntInt(setDoubleValue(rowNum ,"RNT - INT", data));
                   break;
                 case "PRE - PRE":
-                    datafile.setPrePre(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setPrePre(setDoubleValue(rowNum ,"PRE - PRE", data));
                   break;
                 case "RNO - RNO":
-                    datafile.setRnoRno(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setRnoRno(setDoubleValue(rowNum ,"RNO - RNO", data));
                   break;
                 case "GSO - GSO":
-                    datafile.setGsoGso(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setGsoGso(setDoubleValue(rowNum ,"GSO - GSO", data));
                   break;
                 case "INS - INS":
-                    datafile.setInsIns(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setInsIns(setDoubleValue(rowNum ,"INS - INS", data));
                   break;
                 case "INO - CAP":
-                    datafile.setInoCap(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setInoCap(setDoubleValue(rowNum ,"INO - CAP", data));
                   break;
                 case "INO - GST":
-                    datafile.setInoGst(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setInoGst(setDoubleValue(rowNum ,"INO - GST", data));
                   break;
                 case "GST - GST":
-                    datafile.setGstGst(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setGstGst(setDoubleValue(rowNum ,"GST - GST", data));
                   break;
                 case "CHR - CAP":
-                    datafile.setChrCap(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setChrCap(setDoubleValue(rowNum ,"CHR - CAP", data));
                   break;
                 case "CHR - GST":
-                    datafile.setChrGst(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setChrGst(setDoubleValue(rowNum ,"CHR - GST", data));
                   break;
                 case "UPS - UPS":
-                    datafile.setUpsUps(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setUpsUps(setDoubleValue(rowNum ,"UPS - UPS", data));
                   break;
                 case "RMV - RMV":
-                    datafile.setRmvRmv(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setRmvRmv(setDoubleValue(rowNum ,"RMV - RMV", data));
                   break;
                 case "NDP - NDP":
-                    datafile.setNdpNdp(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setNdpNdp(setDoubleValue(rowNum ,"NDP - NDP", data));
                   break;
                 case "OCH - CAP":
-                    datafile.setOchCap(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setOchCap(setDoubleValue(rowNum ,"OCH - CAP", data));
                   break;
                 case "OCH - GST":
-                    datafile.setOchGst(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setOchGst(setDoubleValue(rowNum ,"OCH - GST", data));
                   break;
                 case "INC - CAP":
-                    datafile.setIncCap(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setIncCap(setDoubleValue(rowNum ,"INC - CAP", data));
                   break;
                 case "INC - GAT":
-                    datafile.setIncGat(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setIncGat(setDoubleValue(rowNum ,"INC - GAT", data));
                   break;
                 case "SIF - SIF":
-                    datafile.setOthGst(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setOthGst(setDoubleValue(rowNum ,"SIF - SIF", data));
                   break;
                 case "LGL - LGL":
-                    datafile.setSifSif(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setSifSif(setDoubleValue(rowNum ,"LGL - LGL", data));
                   break;
                 case "OST - OST":
-                    datafile.setLglLgl(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setLglLgl(setDoubleValue(rowNum ,"OST - OST", data));
                   break;
                 case "WCH - WCH":
-                    datafile.setOstOst(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setOstOst(setDoubleValue(rowNum ,"WCH - WCH", data));
                   break;
                 case "HYF - HYF":
-                    datafile.setWchWch(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setWchWch(setDoubleValue(rowNum ,"HYF - HYF", data));
                   break;
                 case "SCH - CAP":
-                    datafile.setHyfHyf(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setHyfHyf(setDoubleValue(rowNum ,"SCH - CAP", data));
                   break;
                 case "SCH - GST":
-                    datafile.setSchCap(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setSchCap(setDoubleValue(rowNum ,"SCH - GST", data));
                   break;
                 case "ADV - ADV":
-                    datafile.setSchGst(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setSchGst(setDoubleValue(rowNum ,"ADV - ADV", data));
                   break;
                 case "OTH - CAP":
-                    datafile.setAdvAdv(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setAdvAdv(setDoubleValue(rowNum ,"OTH - CAP", data));
                   break;
                 case "OTH - GST":
-                    datafile.setOthCap(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setOthCap(setDoubleValue(rowNum ,"OTH - GST", data));
                   break;
                 case "CAV - CAV":
-                    datafile.setCavCav(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setCavCav(setDoubleValue(rowNum ,"CAV - CAV", data));
                   break;
                 case "LUX - LUX":
-                    datafile.setLuxLux(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setLuxLux(setDoubleValue(rowNum ,"LUX - LUX", data));
                   break;
                 case "TC - TC":
-                    datafile.setTcTc(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setTcTc(setDoubleValue(rowNum ,"TC - TC", data));
                   break;
                 case "CLO - CLO":
-                    datafile.setCloClo(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setCloClo(setDoubleValue(rowNum ,"CLO - CLO", data));
                   break;
                 case "CLO - CAP":
-                    datafile.setCloCap(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setCloCap(setDoubleValue(rowNum ,"CLO - CAP", data));
                   break;
                 case "CLO - OTH":
-                    datafile.setCloOth(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setCloOth(setDoubleValue(rowNum ,"CLO - OTH", data));
                   break;
                 case "Fallen Due Rentals":
                     datafile.setFallenDueRentals(Integer.parseInt(data));
                   break;
                 case "Setteld":
-                    datafile.setSetteld(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setSetteld(setDoubleValue(rowNum ,"Setteld", data));
                   break;
                 case "Tot. Outstanding":
-                    datafile.setTotOutstanding(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setTotOutstanding(setDoubleValue(rowNum ,"Tot. Outstanding", data));
                   break;
                 case "Tot. Out. Balance":
-                    datafile.setTotOutBalance(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setTotOutBalance(setDoubleValue(rowNum ,"Tot. Out. Balance", data));
                   break;
                 case "Rnt. Amt. Arrears":
-                    datafile.setRntAmtArrears(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setRntAmtArrears(setDoubleValue(rowNum ,"Rnt. Amt. Arrears", data));
                   break;
                 case "Equip Type":
                     datafile.setEquipType(data);
@@ -217,10 +221,11 @@ public class DataMapper {
                     datafile.setEquipDescription(data);
                   break;
                 case "Age":
-                    datafile.setAge(setDoubleValue(rowNum ,cellNum, data));
+                    datafile.setAge(setDoubleValue(rowNum ,"Age", data));
+                    datafile.setAgeRental(setDoubleValue(rowNum ,"Age", data));
                     break;
                 case "Exp.Date":
-                    datafile.setExpDate(new SimpleDateFormat("dd/MM/yyyy").parse(data));
+//                    datafile.setExpDate(new SimpleDateFormat("dd/MM/yyyy").parse(data));
                   break;
                 case "Sector":
                     datafile.setSector(data);
@@ -230,9 +235,9 @@ public class DataMapper {
                   break;
             }
         }catch (ParseException | NumberFormatException paEx ){
-            paEx.printStackTrace();
+            datafile.setStage(9);
         }
-        return datafile;
+
     }
 
     public static Infotemplatepreview mapDataFile(int rowNum, int cellNum, String data, Infotemplatepreview infotemplatepreview, String columnName) {
@@ -314,7 +319,7 @@ public class DataMapper {
         return infotemplatepreview;
     }
 
-    private static double generateDC(double age,String basis) {
+    public static double generateDC(double age,String basis) {
         if (basis.equalsIgnoreCase("REN")) {
             if (age <= 0) {
                 return 1;
@@ -335,7 +340,7 @@ public class DataMapper {
             } else {
                 return 0;
             }
-        } else if (basis.equalsIgnoreCase("DPD")) {
+        } else if (basis.equalsIgnoreCase("DPD")||basis.equalsIgnoreCase("LGD")) {
             if (age <= 0) {
                 return 1;
             } else if (age < 30) {
@@ -361,12 +366,12 @@ public class DataMapper {
 
     }
 
-    private static double setDoubleValue(int rowNum,int cellNum, String data){
+    private static double setDoubleValue(int rowNum,String cellName, String data){
         try {
             return Double.parseDouble(data.replace(",",""));
         }catch (NumberFormatException nfE){
-            System.out.println("Invalid data found at row : "+rowNum+", cell : "+cellNum+", value : "+data);
-            return 0;
+            System.out.println("Invalid data found at row : "+rowNum+", cell : "+cellName+", value : "+data);
+            throw nfE;
         }
     }
 

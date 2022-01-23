@@ -39,8 +39,8 @@ public class GeneralServiceImpl implements GeneralService{
     @Autowired
     DatafileRepository datafileRepository;
 
-    public void processGeneralApproach(String SAMPLE_XLSX_FILE_PATH) throws Exception{
-        LOGGER.info("1. called getSheets() {}",SAMPLE_XLSX_FILE_PATH);
+    public void processGeneralApproach(String SAMPLE_XLSX_FILE_PATH, String FileName) throws Exception{
+//        LOGGER.info("1. called getSheets() {}",SAMPLE_XLSX_FILE_PATH);
         Workbook workbook = getWorkbook(SAMPLE_XLSX_FILE_PATH);
 
 //        try (
@@ -62,10 +62,11 @@ public class GeneralServiceImpl implements GeneralService{
 //        }
 
         Sheet sheet = workbook.getSheetAt(WORK_SHEET_NO);
-        LOGGER.info("1. called getSheets() {}",SAMPLE_XLSX_FILE_PATH);
-        LOGGER.info("2. reading sheet number {}",WORK_SHEET_NO);
+//        LOGGER.info("1. called getSheets() {}",SAMPLE_XLSX_FILE_PATH);
+//        LOGGER.info("2. reading sheet number {}",WORK_SHEET_NO);
         DataFormatter dataFormatter = new DataFormatter();
-        String product = "LE";
+        String product = FileName.substring(0,2); //LE 2020
+        String year = FileName.substring(3, 7);
         try{
 //            String dateCellValue = dataFormatter.formatCellValue(sheet.getRow(MONTH_ROW).getCell(0));
             Pattern pattern = Pattern.compile(MONTH_REGEX);
@@ -97,41 +98,46 @@ public class GeneralServiceImpl implements GeneralService{
         for (Row r : sheet) {
             rowNum++;
             cellNum = 0;
-            final  Datafile datafile = new Datafile();
+            final Datafile datafile = new Datafile();
+
+            datafile.setProduct(product);
+            datafile.setStage(1);
+
             for (Cell c : r) {
                 cellNum++;
                 if(rowNum == 0){
                     String columnName =  c.getStringCellValue();
                     columnNames.add(columnName.trim());
-                }else if(rowNum>0){
+                }else if(rowNum > 0){
                     String data = c.getStringCellValue().trim();
                     if(cellNum == 1){
                         if(data.isEmpty() || data == null){
                               break nestedBreaker;           // if starting cell is empty, iterating stops
                         }
                     }
-                    datafile.setProduct(product);
-                    datafile.setStage(1);
-                    String idPrefix = "16_01" ;
-                    datafile.setIdData(idPrefix+"_"+rowNum);
                     DataMapper.mapDataFile(rowNum, cellNum, data.trim(), datafile, columnNames.get(cellNum-1));
-
-
                 }
+
             }
-            System.out.println(datafile.toString());
-            LOGGER.info("{}", datafile);
-            FutureTask<Datafile> futureTask = new FutureTask<>(new Callable<Datafile>() {
-                @Override
-                public Datafile call() throws Exception {
-                    return datafileRepository.save(datafile);
-                }
-            });
 
-            executor.execute(futureTask);
+//            LOGGER.info("{}", datafile);
+//            datafileRepository.save(datafile);
+
+            if(datafile.getStage()==1){
+                FutureTask<Datafile> futureTask = new FutureTask<>(new Callable<Datafile>() {
+                    @Override
+                    public Datafile call() throws Exception {
+
+                        return datafileRepository.save(datafile);
+                    }
+                });
+                executor.execute(futureTask);
+            }else{
+                if(datafile.getAge()==null) System.out.println(datafile.getFacilityNo()+", "+datafile.getMonth());
+            }
+
         }
         LOGGER.info("columnNames {}", columnNames);
-
         executor.shutdown();
 
         // Closing the workbook

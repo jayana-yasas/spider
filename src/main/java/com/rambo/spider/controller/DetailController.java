@@ -1,6 +1,6 @@
 package com.rambo.spider.controller;
 
-import com.rambo.spider.events.FileReader;
+import com.rambo.spider.listener.GeneralFileReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +14,7 @@ public class DetailController {
          String details=
                  "<br>Spider is <b>running</b>" +
                  "<br>Version No : <b>V1.00</b>" +
-                 "<br>Deployed date & time : <b>" + FileReader.deployedDate +"</b>";
+                 "<br>Deployed date & time : <b>" + GeneralFileReader.deployedDate +"</b>";
        String details1=
                  "<table style=\"width:80%\">" +
 
@@ -28,7 +28,7 @@ public class DetailController {
                          "  </tr> " +
                          "<tr>" +
                          "    <td>Depolyed Datetime</td>" +
-                         "    <td>"+FileReader.deployedDate+"</td>" +
+                         "    <td>"+ GeneralFileReader.deployedDate+"</td>" +
                          "  </tr> " +
                          "<tr>" +
                          "    <td>Database</td>" +

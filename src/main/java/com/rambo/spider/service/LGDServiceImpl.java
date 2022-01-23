@@ -1,8 +1,8 @@
 package com.rambo.spider.service;
 
 import com.monitorjbl.xlsx.StreamingReader;
-import com.rambo.spider.entity.Infotemplatepreview;
-import com.rambo.spider.repository.InfotemplatepreviewRepository;
+import com.rambo.spider.entity.Datafile;
+import com.rambo.spider.repository.DatafileRepository;
 import com.rambo.spider.util.DataMapper;
 import org.apache.poi.ss.usermodel.*;
 import org.slf4j.Logger;
@@ -23,8 +23,8 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 
 @Service
-public class SimplifiedServiceImpl implements  SimplifiedService{
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimplifiedServiceImpl.class);
+public class LGDServiceImpl implements LGDService{
+    private static final Logger LOGGER = LoggerFactory.getLogger(LGDServiceImpl.class);
 
     @Value(value = "${workbook.sheet.no}")
     private int WORK_SHEET_NO;
@@ -39,42 +39,18 @@ public class SimplifiedServiceImpl implements  SimplifiedService{
     @Value(value = "${workbook.data.start.row}")
     private int DATA_START_ROW;
     @Autowired
-    InfotemplatepreviewRepository infotemplatepreviewRepository;
+    DatafileRepository datafileRepository;
 
-    public void processSimplifiedApproach(String SAMPLE_XLSX_FILE_PATH,String FileName) throws Exception{
+    public void processLGDApproach(String SAMPLE_XLSX_FILE_PATH, String FileName) throws Exception{
         LOGGER.info("1. called getSheets() {}",SAMPLE_XLSX_FILE_PATH);
         Workbook workbook = getWorkbook(SAMPLE_XLSX_FILE_PATH);
 
-//        try (
-//                InputStream fis = new FileInputStream(new File(SAMPLE_XLSX_FILE_PATH));
-//                Workbook wb = StreamingReader.builder()
-//                        .rowCacheSize(100)
-//                        .bufferSize(4096)
-//                        .open(fis)) {
-//            for (Sheet sheet : workbook){
-//                System.out.println(sheet.getSheetName());
-//                for (Row r : sheet) {
-//                    for (Cell c : r) {
-//                        System.out.println(c.getStringCellValue());
-//                    }
-//                }
-//            }
-//        }catch (Exception ee){
-//            ee.printStackTrace();
-//        }
-
         Sheet sheet = workbook.getSheetAt(WORK_SHEET_NO);
-        LOGGER.info("1. called processSimplifiedApproach() {}",SAMPLE_XLSX_FILE_PATH);
+        LOGGER.info("1. called getSheets() {}",SAMPLE_XLSX_FILE_PATH);
         LOGGER.info("2. reading sheet number {}",WORK_SHEET_NO);
-
+        DataFormatter dataFormatter = new DataFormatter();
         String product = FileName.substring(0,2); //LE 2020
         String year = FileName.substring(3, 7);
-        try{
-
-        }catch (Exception e){
-            product = "TP";
-            e.printStackTrace();
-        }
 
         ThreadPoolExecutor executor =  (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
 
@@ -85,35 +61,35 @@ public class SimplifiedServiceImpl implements  SimplifiedService{
         for (Row r : sheet) {
             rowNum++;
             cellNum = 0;
-            final Infotemplatepreview infotemplatepreview = new Infotemplatepreview();
+            final Datafile datafile = new Datafile();
             for (Cell c : r) {
                 cellNum++;
                 if(rowNum == 0){
                     String columnName =  c.getStringCellValue();
                     columnNames.add(columnName.trim());
-                }else if(rowNum > 0){
+                }else if(rowNum>0){
                     String data = c.getStringCellValue().trim();
                     if(cellNum == 1){
                         if(data.isEmpty() || data == null){
                               break nestedBreaker;           // if starting cell is empty, iterating stops
                         }
                     }
+                    datafile.setProduct(product);
+                    datafile.setStage(1);
                     String uuid = UUID.randomUUID().toString().replace("-","");
                     String idPrefix = product+"_"+year + "_"+uuid ;
-                    infotemplatepreview.setState(1);
-                    infotemplatepreview.setId(idPrefix);
-                    data = data.replace(",","");
-                    DataMapper.mapDataFile(rowNum, cellNum, data.trim(), infotemplatepreview, columnNames.get(cellNum-1));
+                    datafile.setIdData(idPrefix+"_"+rowNum);
+                    DataMapper.mapDataFile(rowNum, cellNum, data.trim(), datafile, columnNames.get(cellNum-1));
 
 
                 }
             }
-            System.out.println(infotemplatepreview.toString());
-            LOGGER.info("{}", infotemplatepreview);
-            FutureTask<Infotemplatepreview> futureTask = new FutureTask<>(new Callable<Infotemplatepreview>() {
+            System.out.println(datafile.toString());
+            LOGGER.info("{}", datafile);
+            FutureTask<Datafile> futureTask = new FutureTask<>(new Callable<Datafile>() {
                 @Override
-                public Infotemplatepreview call() throws Exception {
-                    return infotemplatepreviewRepository.save(infotemplatepreview);
+                public Datafile call() throws Exception {
+                    return datafileRepository.save(datafile);
                 }
             });
 
@@ -122,7 +98,10 @@ public class SimplifiedServiceImpl implements  SimplifiedService{
         LOGGER.info("columnNames {}", columnNames);
 
         executor.shutdown();
+
+        // Closing the workbook
         workbook.close();
+        workbook = null;
     }
 
     public Workbook getWorkbook(String SAMPLE_XLSX_FILE_PATH) {
