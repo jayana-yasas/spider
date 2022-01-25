@@ -2,10 +2,11 @@ package com.rambo.spider;
 
 import com.rambo.spider.events.LGDProcessManager;
 import com.rambo.spider.listener.GeneralFileReader;
-import com.rambo.spider.events.ProcessManager;
+import com.rambo.spider.events.PDCalculateGeneral;
 import com.rambo.spider.listener.LGDFileReader;
+import com.rambo.spider.listener.ReceiptReportFileReader;
 import com.rambo.spider.listener.SimplifiedFileReader;
-import com.rambo.spider.events.SimplifiedProcessManager;
+import com.rambo.spider.events.PDCalculateSimplified;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -27,9 +28,9 @@ public class SpiderApplication {
         ThreadPoolTaskExecutor taskExecutor = (ThreadPoolTaskExecutor) context.getBean("taskExecutor");
 
         try {
-            ProcessManager processManager=context.getBean(ProcessManager.class);
+            PDCalculateGeneral processManager=context.getBean(PDCalculateGeneral.class);
             taskExecutor.execute(processManager);
-            SimplifiedProcessManager simplifiedProcessManager=context.getBean(SimplifiedProcessManager.class);
+            PDCalculateSimplified simplifiedProcessManager=context.getBean(PDCalculateSimplified.class);
             taskExecutor.execute(simplifiedProcessManager);
             LGDProcessManager lgdProcessManager=context.getBean(LGDProcessManager.class);
             taskExecutor.execute(lgdProcessManager);
@@ -45,7 +46,8 @@ public class SpiderApplication {
             taskExecutor.execute(simplifiedFileReader);
             LGDFileReader lgdFileReader=context.getBean(LGDFileReader.class);
             taskExecutor.execute(lgdFileReader);
-
+            ReceiptReportFileReader receiptReportFileReader=context.getBean(ReceiptReportFileReader.class);
+            taskExecutor.execute(receiptReportFileReader);
             LOGGER.info("Initialized file reading");
         }catch (Exception e){
             LOGGER.error("Error, Something went wrong with FileReader Thread");
@@ -53,6 +55,7 @@ public class SpiderApplication {
         }
 
     }
+
 
 
 }

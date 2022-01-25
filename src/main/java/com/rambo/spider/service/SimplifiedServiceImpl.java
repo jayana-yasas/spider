@@ -44,39 +44,9 @@ public class SimplifiedServiceImpl implements  SimplifiedService{
     public void processSimplifiedApproach(String SAMPLE_XLSX_FILE_PATH,String FileName) throws Exception{
         LOGGER.info("1. called getSheets() {}",SAMPLE_XLSX_FILE_PATH);
         Workbook workbook = getWorkbook(SAMPLE_XLSX_FILE_PATH);
-
-//        try (
-//                InputStream fis = new FileInputStream(new File(SAMPLE_XLSX_FILE_PATH));
-//                Workbook wb = StreamingReader.builder()
-//                        .rowCacheSize(100)
-//                        .bufferSize(4096)
-//                        .open(fis)) {
-//            for (Sheet sheet : workbook){
-//                System.out.println(sheet.getSheetName());
-//                for (Row r : sheet) {
-//                    for (Cell c : r) {
-//                        System.out.println(c.getStringCellValue());
-//                    }
-//                }
-//            }
-//        }catch (Exception ee){
-//            ee.printStackTrace();
-//        }
-
         Sheet sheet = workbook.getSheetAt(WORK_SHEET_NO);
-        LOGGER.info("1. called processSimplifiedApproach() {}",SAMPLE_XLSX_FILE_PATH);
-        LOGGER.info("2. reading sheet number {}",WORK_SHEET_NO);
-
-        String product = FileName.substring(0,2); //LE 2020
-        String year = FileName.substring(3, 7);
-        try{
-
-        }catch (Exception e){
-            product = "TP";
-            e.printStackTrace();
-        }
-
-        ThreadPoolExecutor executor =  (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
+        String product = "LE" ;// FileName.substring(0,2); //LE 2020
+        String year = "2020";//FileName.substring(3, 7);
 
         List<String> columnNames =new ArrayList<>();
         int rowNum = -1;
@@ -85,7 +55,7 @@ public class SimplifiedServiceImpl implements  SimplifiedService{
         for (Row r : sheet) {
             rowNum++;
             cellNum = 0;
-            final Infotemplatepreview infotemplatepreview = new Infotemplatepreview();
+            Infotemplatepreview infotemplatepreview = new Infotemplatepreview();
             for (Cell c : r) {
                 cellNum++;
                 if(rowNum == 0){
@@ -98,6 +68,7 @@ public class SimplifiedServiceImpl implements  SimplifiedService{
                               break nestedBreaker;           // if starting cell is empty, iterating stops
                         }
                     }
+
                     String uuid = UUID.randomUUID().toString().replace("-","");
                     String idPrefix = product+"_"+year + "_"+uuid ;
                     infotemplatepreview.setState(1);
@@ -108,20 +79,16 @@ public class SimplifiedServiceImpl implements  SimplifiedService{
 
                 }
             }
-            System.out.println(infotemplatepreview.toString());
-            LOGGER.info("{}", infotemplatepreview);
-            FutureTask<Infotemplatepreview> futureTask = new FutureTask<>(new Callable<Infotemplatepreview>() {
-                @Override
-                public Infotemplatepreview call() throws Exception {
-                    return infotemplatepreviewRepository.save(infotemplatepreview);
-                }
-            });
+            if(rowNum > 0){
+                System.out.println(infotemplatepreview.toString());
+                LOGGER.info("{}", infotemplatepreview);
+                infotemplatepreviewRepository.save(infotemplatepreview);
+            }
 
-            executor.execute(futureTask);
+
         }
         LOGGER.info("columnNames {}", columnNames);
 
-        executor.shutdown();
         workbook.close();
     }
 

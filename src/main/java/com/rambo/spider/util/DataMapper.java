@@ -2,7 +2,8 @@ package com.rambo.spider.util;
 
 import com.rambo.spider.entity.Datafile;
 import com.rambo.spider.entity.Infotemplatepreview;
-
+import com.rambo.spider.entity.ReceiptReport;
+import org.apache.poi.ss.usermodel.DateUtil;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -208,6 +209,9 @@ public class DataMapper {
                 case "Tot. Outstanding":
                     datafile.setTotOutstanding(setDoubleValue(rowNum ,"Tot. Outstanding", data));
                   break;
+                case "Outstanding":
+                    datafile.setTotOutstanding(setDoubleValue(rowNum ,"Outstanding", data));
+                  break;
                 case "Tot. Out. Balance":
                     datafile.setTotOutBalance(setDoubleValue(rowNum ,"Tot. Out. Balance", data));
                   break;
@@ -319,6 +323,34 @@ public class DataMapper {
         return infotemplatepreview;
     }
 
+    public static void mapDataFile(int rowNum, int cellNum, String data, ReceiptReport receiptsReports, String columnName) {
+        try {
+            switch (columnName) {
+
+                case "Facility No":
+                    receiptsReports.setFacilityNo(data);
+                    break;
+                case "Date":
+                    Date javaDate= DateUtil.getJavaDate((double) new Double(data));
+                    System.out.println(new SimpleDateFormat("MM/dd/yyyy").format(javaDate));
+                    receiptsReports.setDate(javaDate);
+                    break;
+                case "Receipt":
+                    receiptsReports.setReceipt(data);
+                    break;
+                case "Amount":
+                    receiptsReports.setAmount(setDoubleValue(rowNum ,"Amount", data));
+                    break;
+
+
+            }
+        }catch ( NumberFormatException paEx ){
+
+        }
+
+    }
+
+
     public static double generateDC(double age,String basis) {
         if (basis.equalsIgnoreCase("REN")) {
             if (age <= 0) {
@@ -340,7 +372,7 @@ public class DataMapper {
             } else {
                 return 0;
             }
-        } else if (basis.equalsIgnoreCase("DPD")||basis.equalsIgnoreCase("LGD")) {
+        } else if (basis.equalsIgnoreCase("DPD")) {
             if (age <= 0) {
                 return 1;
             } else if (age < 30) {

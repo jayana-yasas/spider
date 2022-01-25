@@ -1,11 +1,9 @@
 package com.rambo.spider.events;
 
 import com.rambo.spider.entity.Infotemplatepreview;
+import com.rambo.spider.entity.PdCalSimplified;
 import com.rambo.spider.entity.Pdcprocess;
-import com.rambo.spider.repository.DatafileRepository;
-import com.rambo.spider.repository.InfotemplatepreviewRepository;
-import com.rambo.spider.repository.MatrixRepository;
-import com.rambo.spider.repository.PdcProcessRepository;
+import com.rambo.spider.repository.*;
 import com.rambo.spider.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SimplifiedProcessManager implements Runnable {
+public class PDCalculateSimplified implements Runnable {
     @Autowired
     DatafileRepository datafileRepository;
     @Autowired
-    PdcProcessRepository pdcProcessRepository;
+    PdCalculateSimplifiedRepository pdCalculateSimplifiedRepository;
     @Autowired
     InfotemplatepreviewRepository infotemplatepreviewRepository ;
     @Autowired
@@ -27,10 +25,10 @@ public class SimplifiedProcessManager implements Runnable {
     public void run() {
         while (true) {
             try {
-                if (pdcProcessRepository.existsByStageAndBasis(1,"SIM")) {
-                    Pdcprocess pdcprocess = pdcProcessRepository.findByStageAndBasis(1,"SIM");
+                if (pdCalculateSimplifiedRepository.existsByStageAndBasis(1,"SIM")) {
+                    PdCalSimplified pdcprocess = pdCalculateSimplifiedRepository.findByStageAndBasis(1,"SIM").get(0);;
                     pdcprocess.setStage(2);
-                    pdcProcessRepository.save(pdcprocess);
+                    pdCalculateSimplifiedRepository.save(pdcprocess);
 
                     List<Infotemplatepreview> list = infotemplatepreviewRepository.findAllByStateOrderByMonthDesc(1);
                     for (int i = 0; i < list.size()-1; i++) {

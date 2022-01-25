@@ -19,7 +19,7 @@ public class Infotemplatepreview {
     private Double bucket6;
     private Double bucket7;
     private Double bucket8;
-    private int state;
+    private Integer state;
     private Double pdb1;
     private Double pdb2;
     private Double pdb3;
@@ -28,7 +28,6 @@ public class Infotemplatepreview {
     private Double pdb6;
     private Double pdb7;
     private Double pdb8;
-
 
     @Id
     @Column(name = "id")
@@ -51,7 +50,7 @@ public class Infotemplatepreview {
     }
 
     @Basic
-    @Column(name = "bucket_1")
+    @Column(name = "bucket1")
     public Double getBucket1() {
         return bucket1;
     }
@@ -61,7 +60,7 @@ public class Infotemplatepreview {
     }
 
     @Basic
-    @Column(name = "bucket_2")
+    @Column(name = "bucket2")
     public Double getBucket2() {
         return bucket2;
     }
@@ -71,7 +70,7 @@ public class Infotemplatepreview {
     }
 
     @Basic
-    @Column(name = "bucket_3")
+    @Column(name = "bucket3")
     public Double getBucket3() {
         return bucket3;
     }
@@ -81,7 +80,7 @@ public class Infotemplatepreview {
     }
 
     @Basic
-    @Column(name = "bucket_4")
+    @Column(name = "bucket4")
     public Double getBucket4() {
         return bucket4;
     }
@@ -91,7 +90,7 @@ public class Infotemplatepreview {
     }
 
     @Basic
-    @Column(name = "bucket_5")
+    @Column(name = "bucket5")
     public Double getBucket5() {
         return bucket5;
     }
@@ -101,7 +100,7 @@ public class Infotemplatepreview {
     }
 
     @Basic
-    @Column(name = "bucket_6")
+    @Column(name = "bucket6")
     public Double getBucket6() {
         return bucket6;
     }
@@ -111,7 +110,7 @@ public class Infotemplatepreview {
     }
 
     @Basic
-    @Column(name = "bucket_7")
+    @Column(name = "bucket7")
     public Double getBucket7() {
         return bucket7;
     }
@@ -121,13 +120,103 @@ public class Infotemplatepreview {
     }
 
     @Basic
-    @Column(name = "bucket_8")
+    @Column(name = "bucket8")
     public Double getBucket8() {
         return bucket8;
     }
 
     public void setBucket8(Double bucket8) {
         this.bucket8 = bucket8;
+    }
+
+    @Basic
+    @Column(name = "state")
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    @Basic
+    @Column(name = "pdb1")
+    public Double getPdb1() {
+        return pdb1;
+    }
+
+    public void setPdb1(Double pdb1) {
+        this.pdb1 = pdb1;
+    }
+
+    @Basic
+    @Column(name = "pdb2")
+    public Double getPdb2() {
+        return pdb2;
+    }
+
+    public void setPdb2(Double pdb2) {
+        this.pdb2 = pdb2;
+    }
+
+    @Basic
+    @Column(name = "pdb3")
+    public Double getPdb3() {
+        return pdb3;
+    }
+
+    public void setPdb3(Double pdb3) {
+        this.pdb3 = pdb3;
+    }
+
+    @Basic
+    @Column(name = "pdb4")
+    public Double getPdb4() {
+        return pdb4;
+    }
+
+    public void setPdb4(Double pdb4) {
+        this.pdb4 = pdb4;
+    }
+
+    @Basic
+    @Column(name = "pdb5")
+    public Double getPdb5() {
+        return pdb5;
+    }
+
+    public void setPdb5(Double pdb5) {
+        this.pdb5 = pdb5;
+    }
+
+    @Basic
+    @Column(name = "pdb6")
+    public Double getPdb6() {
+        return pdb6;
+    }
+
+    public void setPdb6(Double pdb6) {
+        this.pdb6 = pdb6;
+    }
+
+    @Basic
+    @Column(name = "pdb7")
+    public Double getPdb7() {
+        return pdb7;
+    }
+
+    public void setPdb7(Double pdb7) {
+        this.pdb7 = pdb7;
+    }
+
+    @Basic
+    @Column(name = "pdb8")
+    public Double getPdb8() {
+        return pdb8;
+    }
+
+    public void setPdb8(Double pdb8) {
+        this.pdb8 = pdb8;
     }
 
     @Override
@@ -144,127 +233,21 @@ public class Infotemplatepreview {
                 Objects.equals(bucket5, that.bucket5) &&
                 Objects.equals(bucket6, that.bucket6) &&
                 Objects.equals(bucket7, that.bucket7) &&
-                Objects.equals(bucket8, that.bucket8);
+                Objects.equals(bucket8, that.bucket8) &&
+                Objects.equals(state, that.state) &&
+                Objects.equals(pdb1, that.pdb1) &&
+                Objects.equals(pdb2, that.pdb2) &&
+                Objects.equals(pdb3, that.pdb3) &&
+                Objects.equals(pdb4, that.pdb4) &&
+                Objects.equals(pdb5, that.pdb5) &&
+                Objects.equals(pdb6, that.pdb6) &&
+                Objects.equals(pdb7, that.pdb7) &&
+                Objects.equals(pdb8, that.pdb8);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, month, bucket1, bucket2, bucket3, bucket4, bucket5, bucket6, bucket7, bucket8);
-    }
-
-    @Basic
-    @Column(name = "state")
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    @Basic
-    @Column(name = "PDB_1")
-    public Double getPdb1() {
-        return pdb1;
-    }
-
-    public void setPdb1(Double pdb1) {
-        this.pdb1 = pdb1;
-    }
-
-    @Basic
-    @Column(name = "PDB_2")
-    public Double getPdb2() {
-        return pdb2;
-    }
-
-    public void setPdb2(Double pdb2) {
-        this.pdb2 = pdb2;
-    }
-
-    @Basic
-    @Column(name = "PDB_3")
-    public Double getPdb3() {
-        return pdb3;
-    }
-
-    public void setPdb3(Double pdb3) {
-        this.pdb3 = pdb3;
-    }
-
-    @Basic
-    @Column(name = "PDB_4")
-    public Double getPdb4() {
-        return pdb4;
-    }
-
-    public void setPdb4(Double pdb4) {
-        this.pdb4 = pdb4;
-    }
-
-    @Basic
-    @Column(name = "PDB_5")
-    public Double getPdb5() {
-        return pdb5;
-    }
-
-    public void setPdb5(Double pdb5) {
-        this.pdb5 = pdb5;
-    }
-
-    @Basic
-    @Column(name = "PDB_6")
-    public Double getPdb6() {
-        return pdb6;
-    }
-
-    public void setPdb6(Double pdb6) {
-        this.pdb6 = pdb6;
-    }
-
-    @Basic
-    @Column(name = "PDB_7")
-    public Double getPdb7() {
-        return pdb7;
-    }
-
-    public void setPdb7(Double pdb7) {
-        this.pdb7 = pdb7;
-    }
-
-    @Basic
-    @Column(name = "PDB_8")
-    public Double getPdb8() {
-        return pdb8;
-    }
-
-    public void setPdb8(Double pdb8) {
-        this.pdb8 = pdb8;
-    }
-
-    @Override
-    public String toString() {
-        return "Infotemplatepreview{" +
-                "id='" + id + '\'' +
-                ", month=" + month +
-                ", bucket1=" + bucket1 +
-                ", bucket2=" + bucket2 +
-                ", bucket3=" + bucket3 +
-                ", bucket4=" + bucket4 +
-                ", bucket5=" + bucket5 +
-                ", bucket6=" + bucket6 +
-                ", bucket7=" + bucket7 +
-                ", bucket8=" + bucket8 +
-                ", state=" + state +
-                ", pdb1=" + pdb1 +
-                ", pdb2=" + pdb2 +
-                ", pdb3=" + pdb3 +
-                ", pdb4=" + pdb4 +
-                ", pdb5=" + pdb5 +
-                ", pdb6=" + pdb6 +
-                ", pdb7=" + pdb7 +
-                ", pdb8=" + pdb8 +
-                '}';
+        return Objects.hash(id, month, bucket1, bucket2, bucket3, bucket4, bucket5, bucket6, bucket7, bucket8, state, pdb1, pdb2, pdb3, pdb4, pdb5, pdb6, pdb7, pdb8);
     }
 }

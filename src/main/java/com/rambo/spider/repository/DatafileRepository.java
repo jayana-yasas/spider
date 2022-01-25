@@ -4,7 +4,6 @@ import com.rambo.spider.entity.Datafile;
 import com.rambo.spider.entity.Pdcprocess;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
 import java.util.List;
 
 public interface DatafileRepository extends CrudRepository<Datafile, String> {
@@ -12,6 +11,9 @@ public interface DatafileRepository extends CrudRepository<Datafile, String> {
     List<Datafile> findAllByOrderByFacilityNoAscMonthAsc();
 
     List<Datafile> findAllByProductOrderByFacilityNoAscMonthAsc(String product);
+
+    List<Datafile> findAllByProductAndDcOrderByFacilityNoAscMonthAsc(String product, Double Dc);
+
 
     List<Datafile> findByLastIsNotNullAndLastIsNot(String last);
 
